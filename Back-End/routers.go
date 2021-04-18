@@ -56,21 +56,21 @@ func deleteRegister(w http.ResponseWriter, r *http.Request) {
 	db, err := getDB()
 	if err != nil {
 
-		panic(err.Error())
-	}
+		ERROR(w, http.StatusUnprocessableEntity, err)
+	} else {
 
-	// Security: question mark in mysql command is to avoid Mysql injection.
+		// Security: question mark in mysql command is to avoid Mysql injection.
 
-	_, err = db.Exec("DELETE FROM Employees WHERE ID = ?", idEmployee)
+		_, err = db.Exec("DELETE FROM Employees WHERE ID = ?", idEmployee)
 
-	if err != nil {
-
-		panic(err.Error())
+		if err != nil {
+			defer db.Close()
+			ERROR(w, http.StatusUnprocessableEntity, err)
+		}
 	}
 
 	defer db.Close()
-
-	fmt.Fprintf(w, "Se elimino un rgistro")
+	JSON(w, http.StatusOK, "Usuario eliminado")
 }
 
 // Function to update a record in the database,
@@ -97,16 +97,17 @@ func updateRegister(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 
 		fmt.Fprintf(w, "Inserte a valid Register\n")
+	} else {
+
+		// This function helps us deserialize our JSON array to get useful data.
+		json.Unmarshal(reqBody, &updateEmployee)
+
+		idEmployee = strings.TrimLeft(vars["data.id"], "{")
+		idEmployee = strings.TrimRight(idEmployee, "}")
+
+		// Function to update the data found in the dataBaseController.go file
+		updateData(&updateEmployee, idEmployee)
 	}
-
-	// This function helps us deserialize our JSON array to get useful data.
-	json.Unmarshal(reqBody, &updateEmployee)
-
-	idEmployee = strings.TrimLeft(vars["data.id"], "{")
-	idEmployee = strings.TrimRight(idEmployee, "}")
-
-	// Function to update the data found in the dataBaseController.go file
-	updateData(&updateEmployee, idEmployee)
 }
 
 // Function to obtain a certain number of records, in our case 10 per page.
@@ -118,9 +119,15 @@ func getRegister(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "application/json")
 
 	// Function that reloads the data on each call and is found in the dataBaseController.go file.
-	reloadData()
+	err := reloadData()
 
-	json.NewEncoder(w).Encode(Register)
+	if err != nil {
+
+		ERROR(w, http.StatusUnprocessableEntity, err)
+	} else {
+
+		JSON(w, http.StatusOK, Register)
+	}
 }
 
 // This function helps us create the records that come to us through HTTP requests.
@@ -141,13 +148,19 @@ func createRegister(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 
-		fmt.Fprintf(w, "Inserte a valid Register\n")
+		ERROR(w, http.StatusUnprocessableEntity, err)
+		return
+	} else {
+
+		json.Unmarshal(reqBody, &newRegister)
+
+		// This function connects to the database and creates a new record in the dataBaseController.go file.
+		err = enterData(&newRegister)
+
+		if err != nil {
+			ERROR(w, http.StatusUnprocessableEntity, err)
+			return
+		}
 	}
-
-	json.Unmarshal(reqBody, &newRegister)
-
-	// This function connects to the database and creates a new record in the dataBaseController.go file.
-	enterData(&newRegister)
-
-	json.NewEncoder(w).Encode(newRegister)
+	JSON(w, http.StatusCreated, newRegister)
 }

@@ -35,32 +35,37 @@ func getData() (int, error) {
 
 // This function creates a new record in the Mysql database.
 
-func enterData(newEmployee *employee) {
+func enterData(newEmployee *employee) error {
 
 	db, err := getDB()
 
 	if err != nil {
 
-		fmt.Printf("Eror en la base de datos\n")
+		return err
+	} else {
+
+		fmt.Println(newEmployee)
+
+		// Modifica el EXEC
+		_, err = db.Exec("INSERT INTO Employees "+Insert+"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
+			(*newEmployee).PrimerNombre, (*newEmployee).SegundoNombre,
+			(*newEmployee).PrimerApellido, (*newEmployee).SegundoApellido,
+			(*newEmployee).PaisDelEmpleo, (*newEmployee).TipoIdentificacion,
+			(*newEmployee).NumeroIdentifiacion, (*newEmployee).CorreoElectronico,
+			(*newEmployee).Area, (*newEmployee).Estado)
+
+		// We close the database to free up the resources we use, since they don't believe in trees :3
+		defer db.Close()
+
 	}
-
-	fmt.Println(newEmployee)
-
-	// Modifica el EXEC
-	_, err = db.Exec("INSERT INTO Employees "+Insert+"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
-		(*newEmployee).PrimerNombre, (*newEmployee).SegundoNombre,
-		(*newEmployee).PrimerApellido, (*newEmployee).SegundoApellido,
-		(*newEmployee).PaisDelEmpleo, (*newEmployee).TipoIdentificacion,
-		(*newEmployee).NumeroIdentifiacion, (*newEmployee).CorreoElectronico,
-		(*newEmployee).Area, (*newEmployee).Estado)
 
 	if err != nil {
 
-		fmt.Printf("Error Ingresar datos: Erro %v\n", err.Error())
-	}
+		return err
+	} else {
 
-	// We close the database to free up the resources we use, since they don't believe in trees :3
-	defer db.Close()
+		return nil
+	}
 
 }
 

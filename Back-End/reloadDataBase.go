@@ -4,22 +4,21 @@
 
 package main
 
-import "fmt"
-
-func reloadData() {
+func reloadData() error {
 
 	// First we enter the database and verify any errors generated.
 
 	db, err := getDB()
 	if err != nil {
-		fmt.Printf("Error en la base de datos: %v", err)
+		return err
 	}
 
 	// We make the corresponding request to the database.
 
 	rows, err := db.Query("SELECT * FROM Employees")
 	if err != nil {
-		fmt.Printf("Error en la tabla: %v", err)
+		defer db.Close()
+		return err
 	}
 
 	Register = Register[0:0]
@@ -34,7 +33,8 @@ func reloadData() {
 			&rR.NumeroIdentifiacion, &rR.CorreoElectronico,
 			&rR.Area, &rR.Estado, &rR.FechaIngreso, &rR.FechaRegistro)
 		if err != nil {
-			panic(err.Error())
+			defer db.Close()
+			return err
 		}
 
 		Register = append(Register, rR)
@@ -42,4 +42,6 @@ func reloadData() {
 
 	// we close the database
 	defer db.Close()
+
+	return nil
 }

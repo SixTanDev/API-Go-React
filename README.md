@@ -110,7 +110,7 @@ go get github.com/joho/godotenv
 go get github.com/go-sql-driver/mysql
 ```
 
-2. For security reasons, we cannot share the credentials of the database where they are stored in an ```.env``` file that is not in this repository, The file contains the following environment variables.
+2. For security reasons, we cannot share the credentials of the database where they are stored in a file ``` .env``` inside the Back-End directory. which is not in this repository, the file contains the following environment variables.
 ```
 user="UserMysql"
 pass="password"

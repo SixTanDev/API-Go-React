@@ -21,7 +21,16 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
           <ul>
-            <li><a href="#mysql-and-docker">Mysql and Docker</a></li>
+            <li><a href="#back-end">Back-End</a></li>
+            <ul>
+              <li><a href="#mysql-and-docker">Mysql and Docker</a></li>
+              <li><a href="#go-and-its-dependencies">Go and its dependencies</a></li>
+            </ul>
+            <li><a href="#front-end">Front-End</a></li>
+            <ul>
+              <li><a href="#mysql-and-docker">Mysql and Docker</a></li>
+              <li><a href="#go-and-its-dependencies">Go and its dependencies</a></li>
+            </ul>
           </ul>
         <li><a href="#installation">Installation</a></li>
       </ul>
@@ -51,6 +60,7 @@ The front-end part is built with the following technologies.
 
 ### Prerequisites
 
+### Back-End
 #### Mysql and Docker
 
 * You have Docker installed, if you possibly don't have it installed, you can install it for [Ubuntu18.08](https://www.digitalocean.com/community/tutorials/como-instalar-y-usar-docker-en-ubuntu-18-04-1-es) or [Ubutu20.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-es) if by any chance you have another OS or another version of ubuntu, you can check the installation on the official [docker](https://www.docker.com/) page.
@@ -91,11 +101,62 @@ In my case, I am on a ubuntu 18.04 operating system and to run mysql and directl
 
 ```docker exec -it mysql_mysql_1 bash```
 
+#### Go and its dependencies
 
+1. Install third-party modules first.
+```
+go get github.com/gorilla/mux
+go get github.com/joho/godotenv
+go get github.com/go-sql-driver/mysql
+```
 
+2. For security reasons, we cannot share the credentials of the database where they are stored in an ```.env``` file that is not in this repository, The file contains the following environment variables.
+```
+user="UserMysql"
+pass="password"
+host="hostlocal"
+port="Number of the port"
+db_name="Name of the data base"
+```
 
-This is an example of how to list things you need to use the software and how to install them.
+### Front-End
+To install the Front-End dependencies we simply execute the following command
 * npm
   ```sh
-  npm install npm@latest -g
+  npm install
   ```
+  
+## Installation
+### Back-End
+1. Compile all the .go files and you can do it just by typing this command.
+```
+bo build
+```
+Generates a ```Back-End``` file that is the executable of the previously compiled files.
+
+2. Then run the executable file.
+```
+./Back-End
+```
+### Front-End
+After installing the dependencies, proceed to run the program
+```
+./npm start
+```
+  
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+  
+## Contact
+
+Your Name - [@SixTanDeveloper](https://twitter.com/SixTanDeveloper) - sixtandev@gmail.com
+
+Project Link: [API Go and React](https://github.com/SixTanDev/API-Go-React)

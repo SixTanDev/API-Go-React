@@ -20,6 +20,9 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
+          <ul>
+            <li><a href="#mysql-and-docker">Mysql and Docker</a></li>
+          </ul>
         <li><a href="#installation">Installation</a></li>
       </ul>
   </ol>
@@ -47,6 +50,8 @@ The front-end part is built with the following technologies.
 ## Getting Started
 
 ### Prerequisites
+
+#### Mysql and Docker
 
 * You have Docker installed, if you possibly don't have it installed, you can install it for [Ubuntu18.08](https://www.digitalocean.com/community/tutorials/como-instalar-y-usar-docker-en-ubuntu-18-04-1-es) or [Ubutu20.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-es) if by any chance you have another OS or another version of ubuntu, you can check the installation on the official [docker](https://www.docker.com/) page.
 
@@ -77,11 +82,17 @@ To verify that the service is up and the container is running normally, try runn
 
 * docker ps
 
+| CONTAINER ID   | IMAGE        |  COMMAND               | CREATED      |  STATUS        |  PORTS                                                 | NAMES        |
+| :---           |     :---:    |          -----         |:---          |     :---:      |  ----------------------------------------------------  |:---          |
+| 46f4b96d6b2d   | mysql:latest | "docker-entrypoint.s…" |  4 days ago  | Up 3 hours     | 0.0.0.0:3306->3306/tcp, :::3306->3306/tcp, 33060/tcp   | mysql_mysql_1|
+
+
 In my case, I am on a ubuntu 18.04 operating system and to run mysql and directly mount a docker terminal, I run the following command
 
 ```docker exec -it mysql_mysql_1 bash```
 
-```docker-compose up -d```
+
+
 
 This is an example of how to list things you need to use the software and how to install them.
 * npm

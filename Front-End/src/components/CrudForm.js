@@ -46,7 +46,6 @@ export default function CrudForm({
     e.preventDefault();
     if (
       !form.PrimerApellido ||
-      !form.SegundoApellido ||
       !form.PrimerNombre ||
       !form.OtroNombre ||
       !form.PaisDelEmpleo ||
@@ -210,7 +209,7 @@ export default function CrudForm({
             type="text"
             name="Estado"
             placeholder="Activo"
-            disabled="true"
+//            disabled="true"
           >
             <option selected value="true">
               Activo

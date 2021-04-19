@@ -13,7 +13,7 @@ const CrudApi = () => {
   const [loading, setLoading] = useState(false);
 
   let api = helpHttp();
-  let url = "http://localhost:8000/santos"; //mi enpoint
+  let url = "http://localhost:8000"; //mi enpoint
 
   //se ejecuta la primera vez unicamente
   useEffect(() => {
@@ -64,7 +64,7 @@ const CrudApi = () => {
     api.put(endPoint, options).then((res) => {
       console.log(res);
       if (!res.err) {
-        let newData = db.map((el) => (el.id === data.id ? data : el));
+        let newData = db.map((el) => (el.ID === data.id ? data : el));
         setDb(newData);
         console.log("desde el put");
       } else {
@@ -86,7 +86,7 @@ const CrudApi = () => {
 
       api.del(endPoint, options).then((res) => {
         if (!res.err) {
-          let newData = db.filter((el) => el.id !== id);
+          let newData = db.filter((el) => el.ID !== id);
           setDb(newData);
         } else {
           setError(res);

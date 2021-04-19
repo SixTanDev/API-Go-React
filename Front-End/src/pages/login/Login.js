@@ -60,15 +60,15 @@ export default function Login() {
     <div className="login-container">
       {islogin ? (
         <div className="home-container">
-          <h1>!hola , {user}!</h1>
-          <label> Feclicitaciones </label>
+          <h1>!Hola , {user}!</h1>
+          <label> Exceso exítoso </label>
           <CrudApi />
 
           {/* <DataSearch /> */}
         </div>
       ) : (
         <div className="login-content">
-          <Title text="!BienVenido" />
+          <Title text="!Bienvenido¡" />
           <Label text="Usuario" />
           {hasError && (
             <label className="label-alert">

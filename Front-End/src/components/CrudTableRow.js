@@ -18,7 +18,7 @@ export default function CrudTableRow({ el, setDataToEdit, deleteData }) {
       <td>
         <button onClick={() => setDataToEdit(el)}> Editar</button>
 
-        <button onClick={() => deleteData(el.id)}> Elimiar</button>
+        <button onClick={() => deleteData(el.ID)}> Elimiar</button>
       </td>
     </tr>
   );

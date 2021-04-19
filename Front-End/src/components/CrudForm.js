@@ -3,7 +3,7 @@ import { FaMapMarked, FaEnvelopeOpen, FaPhone } from "react-icons/fa";
 
 
 const initialForm = {
-  id: null,
+  ID: null,
   PrimerApellido: "",
   SegundoApellido: "",
   PrimerNombre: "",
@@ -60,7 +60,7 @@ export default function CrudForm({
       alert("datos incompletos");
       return;
     }
-    if (form.id === null) {
+    if (form.ID === null) {
       createData(form);
     } else {
       updateData(form);
@@ -225,7 +225,7 @@ export default function CrudForm({
               sixtandev@gmail.com
             </li>
             <li>(57)314-895-17-56</li>
-            <p> Iam Emmanuel Palacio Gaviria.</p>
+            <p> I am Emmanuel Palacio Gaviria.</p>
             <p>
               I'm a passionate and creative full-stack developer from Colombia
               🇨🇴 I am a person who likes to work in a team a lot, I love to

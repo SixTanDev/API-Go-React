@@ -8,7 +8,7 @@ import (
 	"github.com/joho/godotenv" // Third-party code: to be able to read files that have the following structure. Variable = Data
 )
 
-var _ = godotenv.Load(".env") // We load the file called .env
+var _ = godotenv.Load(".env-example") // We load the file called .env
 var (
 	ConnectionString = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
 		os.Getenv("user"),

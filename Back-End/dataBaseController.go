@@ -47,12 +47,12 @@ func enterData(newEmployee *employee) error {
 		fmt.Println(newEmployee)
 
 		// Modifica el EXEC
-		_, err = db.Exec("INSERT INTO Employees "+Insert+"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
+		_, err = db.Exec("INSERT INTO Employees "+Insert+"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1) ",
 			(*newEmployee).PrimerNombre, (*newEmployee).SegundoNombre,
 			(*newEmployee).PrimerApellido, (*newEmployee).SegundoApellido,
 			(*newEmployee).PaisDelEmpleo, (*newEmployee).TipoIdentificacion,
 			(*newEmployee).NumeroIdentifiacion, (*newEmployee).CorreoElectronico,
-			(*newEmployee).Area, (*newEmployee).Estado)
+			(*newEmployee).Area)
 
 		// We close the database to free up the resources we use, since they don't believe in trees :3
 		defer db.Close()
@@ -80,7 +80,6 @@ func updateData(newEmployee *employee, idEmployee string) {
 		fmt.Printf("Eror en la base de datos\n")
 	}
 
-	fmt.Println(idEmployee)
 
 	_, err = db.Exec("UPDATE Employees SET "+Update+" WHERE ID = ?",
 		(*newEmployee).PrimerNombre, (*newEmployee).SegundoNombre,
